@@ -1,4 +1,4 @@
-# Laravel elbes MY App: Technical Setup & Local Development Guide
+# Unique E-Commerce Platform: Setup & Local Development Guide
 
 ## Prerequisites
 - **PHP**: 8.1 or newer (recommended: 8.2+)
@@ -11,8 +11,8 @@
 
 ## 1. Clone the Repository
 ```powershell
-git clone <repo-url> c:\xampp\htdocs\elbes-my
-cd c:\xampp\htdocs\elbes-my
+git clone <your-new-repo-url> c:\xampp\htdocs\my-ecommerce-app
+cd c:\xampp\htdocs\my-ecommerce-app
 ```
 
 ## 2. Install PHP Dependencies
@@ -42,20 +42,23 @@ php artisan key:generate
 
 ## 6. Database Setup
 - **Create the database** (MySQL):
-  - Use phpMyAdmin or:
+    - Use phpMyAdmin or:
     ```powershell
     mysql -u root -p
-    CREATE DATABASE elbes_my;
+    CREATE DATABASE my_ecommerce_app;
     exit
     ```
-- **Run migrations:**
+- **Run migrations in order (to avoid foreign key errors):**
+    - Migration files are prefixed (a_, b_, c_) for correct order.
     ```powershell
     php artisan migrate
     ```
-- **(Optional) Seed sample data:**
+- **Seed unique clothing-only sample data (no duplicates):**
     ```powershell
     php artisan db:seed
     ```
+    - This will create only unique, clothing-related products and categories.
+    - Custom default user/admin accounts are seeded (see UserSeeder for details).
 
 ## 7. Storage Symlink (for images)
 ```powershell
@@ -100,11 +103,32 @@ php artisan test
     php artisan tinker
     ```
 
-## 13. Troubleshooting
+## 13. Git Remote Troubleshooting & Repo Re-linking
+- To disconnect from the old repository:
+    ```powershell
+    git remote remove origin
+    ```
+- To connect to a new repository:
+    ```powershell
+    git remote add origin <your-new-repo-url>
+    git push -u origin main
+    ```
+- If you want a fresh commit history, delete the `.git` folder and reinitialize:
+    ```powershell
+    rmdir /s /q .git
+    git init
+    git remote add origin <your-new-repo-url>
+    git add .
+    git commit -m "Initial commit"
+    git push -u origin main
+    ```
+
+## 14. Troubleshooting
 - **Image upload issues:** Ensure `storage/` and `storage/app/public/` are writable. Run `php artisan storage:link`.
 - **.env not loaded:** Double-check file name and permissions.
 - **Database errors:** Confirm DB credentials and that the DB exists.
 - **Node/npm errors:** Delete `node_modules` and run `npm install` again.
+- **Migration errors:** Ensure you run migrations in the correct order (see above).
 
 ---
 
