@@ -24,6 +24,13 @@ composer install
 ```powershell
 npm install
 ```
+Remove-Item -Recurse -Force .git
+git init
+git remote add origin https://github.com/Rabah-ing/elbes_MY
+git add .
+git commit -m "Initial commit for elbes_MY"
+git branch -M main
+git push -u origin main
 
 ## 4. Environment Configuration
 - Copy the example environment file:
